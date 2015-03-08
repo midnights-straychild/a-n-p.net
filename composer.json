@@ -1,0 +1,33 @@
+{
+    "name": "a-n-p-home",
+    "title": "Against Nuclear Power - Corporation Home",
+    "description": "EVE Online Corporation Website",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "private": true,
+    "author": {
+        "name": "Playground",
+        "email": "ralf.lauseker@gmx.de",
+        "url": "https://a-n-p.net"
+    },
+
+    "support": {},
+
+    "require": {
+        "php": ">=5.4",
+        "twitter/bootstrap": "v3.0.0",
+        "components/angular.js": "1.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "phing/phing": ">= 2.7.0",
+        "pdepend/pdepend": ">= 1.1.1",
+        "phpmd/phpmd": ">= 1.5.0",
+        "squizlabs/php_codesniffer": ">= 1.0",
+        "mayflower/php-codebrowser": "~1.1",
+        "sebastian/phpcpd": "2.0.1"
+    },
+    "config": {
+        "vendor-dir": "vendor/"
+    }
+}
