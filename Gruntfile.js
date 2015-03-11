@@ -3,21 +3,21 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var SCRIPT_SRC_PATH = './src/js/',
-        SCRIPT_DEST_PATH = './js/',
-        LESS_SRC_PATH = './src/less/',
-        LESS_DEST_PATH = './css/',
-        VENDOR_SRC_PATH = './vendor/',
+    var scriptSrcPath = './src/js/',
+        scriptDestPath = './js/',
+        lessSrcPath = './src/less/',
+        lessDestPath = './css/',
+        vendorSrcPath = './vendor/',
 
-        URL_BASE = 'localhost/',
+        urlBase = 'localhost/',
 
-        LIB_JS_FILES = [
-            SCRIPT_SRC_PATH + 'lib/*.js',
-            VENDOR_SRC_PATH + 'twitter/bootstrap/js/*.js'
+        libJsFiles = [
+            scriptSrcPath + 'lib/*.js',
+            vendorSrcPath + 'twitter/bootstrap/js/*.js'
         ],
 
-        MAIN_JS_FILES = [
-            SCRIPT_SRC_PATH + '*.js'
+        mainJsFiles = [
+            scriptSrcPath + '*.js'
         ];
 
     // Project configuration.
@@ -27,10 +27,23 @@ module.exports = function (grunt) {
             gruntfile: {
                 src: ['./Gruntfile.js']
             },
-            all: [SCRIPT_SRC_PATH + '*.js'],
+            all: [scriptSrcPath + '*.js'],
 
             options: {
                 jshintrc: '.jshintrc'
+            }
+        },
+        copy: {
+            angular: {
+                nonull: true,
+                expand: true,
+                flatten: true,
+                src: [
+                    'node_modules/angular/angular.min.js',
+                    'node_modules/angular/angular.min.js.gzip',
+                    'node_modules/angular/angular.min.js.map'
+                ],
+                dest: 'js/'
             }
         },
         less: {
@@ -40,13 +53,13 @@ module.exports = function (grunt) {
                     compile: true,
                     yuicompress: true,
                     sourceMap: true,
-                    sourceMapFilename: LESS_DEST_PATH + 'bootstrap-core.css.map',
+                    sourceMapFilename: lessDestPath + 'bootstrap-core.css.map',
                     sourceMapURL: '/css/bootstrap-core.css.map',
-                    sourceMapRootPath: URL_BASE,
-                    sourceMapBasepath: URL_BASE
+                    sourceMapRootPath: urlBase,
+                    sourceMapBasepath: urlBase
                 },
                 files: {
-                    'css/bootstrap-core.css': LESS_SRC_PATH + 'bootstrap-core.less'
+                    'css/bootstrap-core.css': lessSrcPath + 'bootstrap-core.less'
                 }
             },
             bootstrap: {
@@ -55,13 +68,13 @@ module.exports = function (grunt) {
                     compile: true,
                     yuicompress: true,
                     sourceMap: true,
-                    sourceMapFilename: LESS_DEST_PATH + 'bootstrap.css.map',
+                    sourceMapFilename: lessDestPath + 'bootstrap.css.map',
                     sourceMapURL: '/css/bootstrap.css.map',
-                    sourceMapRootPath: URL_BASE,
-                    sourceMapBasepath: URL_BASE
+                    sourceMapRootPath: urlBase,
+                    sourceMapBasepath: urlBase
                 },
                 files: {
-                    'css/bootstrap.css': LESS_SRC_PATH + 'bootstrap.less'
+                    'css/bootstrap.css': lessSrcPath + 'bootstrap.less'
                 }
             }
         },
@@ -72,13 +85,13 @@ module.exports = function (grunt) {
                         except: ['jQuery', '$', '_', 'PB', 'pbsc', 'Spinner']
                     },
                     compress: true,
-                    sourceMap: SCRIPT_DEST_PATH + 'lib.min.js.map',
-                    sourceMappingURL: URL_BASE + 'js/lib.min.js.map',
+                    sourceMap: scriptDestPath + 'lib.min.js.map',
+                    sourceMappingURL: urlBase + 'js/lib.min.js.map',
                     sourceMapPrefix: 3,
-                    sourceMapRoot: URL_BASE + 'js/'
+                    sourceMapRoot: urlBase + 'js/'
                 },
                 files: {
-                    'js/lib.min.js': LIB_JS_FILES
+                    'js/lib.min.js': libJsFiles
                 }
             },
             main: {
@@ -87,26 +100,26 @@ module.exports = function (grunt) {
                         except: ['jQuery', '$', '_', 'PB', 'pbsc', 'Spinner']
                     },
                     compress: true,
-                    sourceMap: SCRIPT_DEST_PATH + 'main.min.js.map',
-                    sourceMappingURL: URL_BASE + 'js/main.min.js.map',
+                    sourceMap: scriptDestPath + 'main.min.js.map',
+                    sourceMappingURL: urlBase + 'js/main.min.js.map',
                     sourceMapPrefix: 3,
-                    sourceMapRoot: URL_BASE + 'js/'
+                    sourceMapRoot: urlBase + 'js/'
                 },
                 files: {
-                    'js/main.min.js': MAIN_JS_FILES
+                    'js/main.min.js': mainJsFiles
                 }
             }
         },
         watch: {
             minifyJs: {
-                files: MAIN_JS_FILES,
+                files: mainJsFiles,
                 tasks: ['minifyJs'],
                 options: {
                     spawn: false
                 }
             },
             minifyLess: {
-                files: LESS_SRC_PATH + '*.less',
+                files: lessSrcPath + '*.less',
                 tasks: ['minifyLess'],
                 options: {
                     spawn: false
@@ -115,6 +128,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -122,9 +136,24 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('minify', ['minify-js', 'minify-less']);
-    grunt.registerTask('minifyJs', ['jshint', 'uglify:lib', 'uglify:main']);
-    grunt.registerTask('minifyLess', ['less:bootstrapcore', 'less:bootstrap']);
+
+    grunt.registerTask('minify', [
+        'minify-js',
+        'minify-less'
+    ]);
+
+    grunt.registerTask('minifyJs', [
+        'jshint',
+        'copy:angular',
+        'uglify:lib',
+        'uglify:main'
+    ]);
+
+    grunt.registerTask('minifyLess', [
+        'less:bootstrapcore',
+        'less:bootstrap'
+    ]);
 };
