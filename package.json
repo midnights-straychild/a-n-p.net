@@ -19,7 +19,8 @@
         {}
     ],
     "dependencies": {
-        "angular": "~1.3.14"
+        "angular": ">=1.3.14",
+        "jquery": ">=2.1.3"
     },
     "devDependencies": {
         "grunt": ">=0.4.5",
@@ -35,8 +36,8 @@
         "grunt-contrib-watch": ">=0.4.4",
         "grunt-contrib-yuidoc": ">=0.5.2",
         "grunt-yui-compressor": ">=0.1.1",
-        "grunt-contrib-copy": "~0.8.0",
-        "grunt-npm-install": "~0.2.0"
+        "grunt-contrib-copy": ">=0.8.0",
+        "grunt-npm-install": ">=0.2.0"
     },
     "keywords": [],
     "releaseFolder": "release"

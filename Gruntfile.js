@@ -44,6 +44,16 @@ module.exports = function (grunt) {
                     'node_modules/angular/angular.min.js.map'
                 ],
                 dest: 'js/'
+            },
+            jquery: {
+                nonull: true,
+                expand: true,
+                flatten: true,
+                src: [
+                    'node_modules/jquery/dist/jquery.min.js',
+                    'node_modules/jquery/dist/jquery.min.map'
+                ],
+                dest: 'js/'
             }
         },
         less: {
@@ -147,7 +157,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('minifyJs', [
         'jshint',
-        'copy:angular',
+        'copy',
         'uglify:lib',
         'uglify:main'
     ]);

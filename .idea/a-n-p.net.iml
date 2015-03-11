@@ -2,7 +2,6 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/vendor/components/angular.js" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mayflower/php-codebrowser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
@@ -69,7 +68,6 @@
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/yaml" />
           <root url="file://$MODULE_DIR$/vendor/twitter/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/components/angular.js" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/phpcpd" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/finder-facade" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
@@ -98,7 +96,6 @@
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/yaml" />
           <root url="file://$MODULE_DIR$/vendor/twitter/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/components/angular.js" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/phpcpd" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/finder-facade" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
