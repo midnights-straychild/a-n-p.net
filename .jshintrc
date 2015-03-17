@@ -38,5 +38,6 @@
         "spyOn": true,
         "loadFixtures": true,
         "pbsc": true
-    }
+    },
+    "predef": ["angular"]
 }
