@@ -57,22 +57,7 @@ module.exports = function (grunt) {
             }
         },
         less: {
-            bootstrapcore: {
-                options: {
-                    cleancss: true,
-                    compile: true,
-                    yuicompress: true,
-                    sourceMap: true,
-                    sourceMapFilename: lessDestPath + 'bootstrap-core.css.map',
-                    sourceMapURL: '/css/bootstrap-core.css.map',
-                    sourceMapRootPath: urlBase,
-                    sourceMapBasepath: urlBase
-                },
-                files: {
-                    'css/bootstrap-core.css': lessSrcPath + 'bootstrap-core.less'
-                }
-            },
-            bootstrap: {
+            default: {
                 options: {
                     cleancss: true,
                     compile: true,
@@ -129,7 +114,7 @@ module.exports = function (grunt) {
                 }
             },
             minifyLess: {
-                files: lessSrcPath + '*.less',
+                files: lessSrcPath + '**',
                 tasks: ['minifyLess'],
                 options: {
                     spawn: false
@@ -163,7 +148,6 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('minifyLess', [
-        'less:bootstrapcore',
-        'less:bootstrap'
+        'less:default'
     ]);
 };

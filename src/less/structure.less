@@ -1,0 +1,63 @@
+// Structure
+// ----------------------------------------------------------------------------
+
+body {
+    background-color: @background-dark;
+    color: @text-bright;
+    background: fixed top center url("../img/bg.jpg");
+}
+
+@media (min-width: @screen-tablet) {
+
+}
+
+@media (min-width: @screen-desktop) {
+
+}
+
+.container {
+    .max-width(960px);
+}
+
+// Generic
+// --------------------------------------
+
+[data-area] {
+
+}
+
+// Specific
+// --------------------------------------
+
+[data-area="sidebar"] {
+    display: table-cell;
+    .width(@sidebar-width);
+    vertical-align: top;
+    overflow: hidden;
+}
+
+[data-area="main"] {
+    display: table-cell;
+    vertical-align: top;
+    position: relative;
+    .width(100%);
+
+    [data-area="background"] {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
+
+    [data-area="content"] {
+        .container {
+            .page-area;
+        }
+    }
+
+    [data-area="footer"] {
+        .container {
+            .page-area;
+        }
+    }
+}
+

@@ -16,7 +16,7 @@
     "noempty": true,
     "plusplus": false,
     "unused": true,
-    "strict": true,
+    "strict": false,
     "trailing": true,
     "white": false,
     "onevar": true,
