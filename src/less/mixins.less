@@ -265,10 +265,8 @@
 
 .page-area {
     background-color: @background-bright;
-    border: 1px solid @border-bright;
     opacity: 0.9;
     .padding-top(15px);
-    border-radius: 4px;
     .margin-bottom-narrow;
 }
 
@@ -284,11 +282,8 @@
     a {
         color: @link-text-color;
 
-        &:hover {
-            cursor: pointer;
-            text-decoration: none;
-            color: @link-hover-text-color;
-        }
+        .default-hover;
+        .default-active;
     }
 }
 
@@ -315,19 +310,20 @@
 
 .link-box {
     a {
+        .background-hover;
+        .background-active;
+
         .padding(5px);
         .width(100%);
         background-color: @link-background-color;
-
-        &:hover {
-            color: #fff;
-            background-color: @link-hover-background-color;
-        }
     }
 }
 
 .link-square(@length) {
     a {
+        .background-hover;
+        .background-active;
+
         display: inline-block;
         .padding(5px);
         .width(@length);
@@ -335,17 +331,38 @@
         line-height: @length - 10px;
         vertical-align: middle;
         background-color: @link-background-color;
+    }
+}
 
-        &:hover {
-            color: #fff;
-            background-color: @link-hover-background-color;
-        }
+.background-hover {
+    &:hover {
+        .default-hover;
 
-        &.active, &:active {
-            color: #fff;
-            text-decoration: none;
-            background-color: @link-hover-background-color;
-        }
+        color: #fff;
+        background-color: @link-hover-background-color;
+    }
+}
+
+.default-hover {
+    &:hover {
+        cursor: pointer;
+        text-decoration: none;
+        color: @link-hover-text-color;
+    }
+}
+
+.background-active {
+    &.active, &:active {
+        .default-active;
+
+        background-color: @link-hover-background-color;
+    }
+}
+
+.default-active {
+    &.active, &:active {
+        color: #fff;
+        text-decoration: none;
     }
 }
 
@@ -370,6 +387,10 @@
     .border;
     .border-bright;
     .border-broad;
+}
+
+.border-bottom {
+    border-bottom: 1px solid @border-color-bright;
 }
 
 .border {

@@ -1,18 +1,17 @@
 // Structure
 // ----------------------------------------------------------------------------
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
+    width: 100%;
+    position: fixed;
     background-color: @background-dark;
     color: @text-bright;
-    background: fixed top center url("../img/bg.jpg");
-}
-
-@media (min-width: @screen-tablet) {
-
-}
-
-@media (min-width: @screen-desktop) {
-
+    background: fixed center center url("../img/bg.jpg");
 }
 
 .container {
@@ -31,22 +30,65 @@ body {
 
 [data-area="sidebar"] {
     display: table-cell;
-    .width(@sidebar-width);
     vertical-align: top;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.5);
+    .width(@sidebar-width);
+    height: 100%;
+}
+
+[data-area="background"] {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -10;
 }
 
 [data-area="main"] {
     display: table-cell;
     vertical-align: top;
-    position: relative;
-    .width(100%);
 
-    [data-area="background"] {
-        position: fixed;
+    .content-wrapper {
+        position: absolute;
+        z-index: -1;
         height: 100%;
         width: 100%;
+        .margin-left(-64px);
+        .padding-left(64px);
+        .padding-top(129px);
+        overflow-y: auto;
+    }
+
+    [data-area="content"] {
+
     }
 }
 
+.page-headline {
+    .margin-left(64px);
+
+    h1 {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: @screen-tablet) {
+    [data-area="main"] {
+        .content-wrapper {
+            .padding-top(64px);
+        }
+    }
+
+    .page-headline h1 {
+        margin-top: 8px;
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: @screen-phone) {
+
+    .page-headline h1 {
+        margin-top: 15px;
+        font-size: 1.1em;
+    }
+}

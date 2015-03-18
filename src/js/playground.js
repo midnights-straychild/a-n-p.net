@@ -49,8 +49,7 @@ eveApp.directive('activeLink', ['$location', function (location) {
             path = path.substring(1); //hack because path does not return including hashbang
             scope.location = location;
             scope.$watch('location.path()', function (newPath) {
-                var newerPath = newPath.substring(1);
-                if (path === newerPath) {
+                if (path === newPath) {
                     element.addClass(clazz);
                 } else {
                     element.removeClass(clazz);

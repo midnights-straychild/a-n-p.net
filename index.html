@@ -14,33 +14,42 @@
 
 <div data-area="sidebar">
     <section data-module="logo">
-        <a href="#" title="Against Nuclear Power - Home">
+        <a active-link="active" href="#/" title="Against Nuclear Power - Home">
             <img src="img/logo.png" alt="Logo"/>
         </a>
     </section>
     <section data-module="list">
         <ul>
             <li>
-                <a active-link="active" href="#about">About</a>
+                <a active-link="active" href="#/about">About</a>
             </li>
             <li>
-                <a active-link="active" href="#contact">Contact</a>
+                <a active-link="active" href="#/contact">Contact</a>
             </li>
         </ul>
     </section>
-    <section data-module="headline">
-        <h1 class="rotate-90 font-special nowrap">[A-N-P] - Against Nuclear Power</h1>
-    </section>
+    <div data-area="background">
+
+    </div>
 </div>
 <div data-area="main">
-    <div data-area="background">
-        <section data-module="map">
+    <div class="content-wrapper">
+        <div data-area="content" id="content">
+            <div ng-view></div>
+        </div>
+    </div>
+</div>
+<div data-area="background">
+    <section data-module="headline" class="page-headline">
+        <h1 class="font-special">
+            <span class="font-larger">[A-N-P]</span>
+            <br/>
+            <span class="font-smaller">Against Nuclear Power</span>
+        </h1>
+    </section>
+    <section data-module="map">
 
-        </section>
-    </div>
-    <div data-area="content" id="content">
-        <div ng-view></div>
-    </div>
+    </section>
 </div>
 </body>
 </html>
