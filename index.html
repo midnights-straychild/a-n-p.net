@@ -6,23 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Against Nuclear Power [A-N-P] - Corporation Home</title>
     <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/lib.min.js"></script>
+    <script src="js/main.min.js"></script>
 </head>
 <body ng-controller="mainController">
 <a href="#content" class="sr-only">Skip to main content</a>
 
 <div data-area="sidebar">
     <section data-module="logo">
-        <a href="./#" title="Against Nuclear Power - Home">
+        <a href="#" title="Against Nuclear Power - Home">
             <img src="img/logo.png" alt="Logo"/>
         </a>
     </section>
     <section data-module="list">
         <ul>
             <li>
-                <a href="./#about">About</a>
+                <a active-link="active" href="#about">About</a>
             </li>
             <li>
-                <a href="./#contact">Contact</a>
+                <a active-link="active" href="#contact">Contact</a>
             </li>
         </ul>
     </section>
@@ -32,85 +34,13 @@
 </div>
 <div data-area="main">
     <div data-area="background">
-        <section data-module="headline">
-            <h1>
-                <span class="font-larger">[A-N-P]</span>
-                <br/>
-                <span class="font-smaller">Against Nuclear Power</span>
-            </h1>
-        </section>
         <section data-module="map">
 
         </section>
     </div>
     <div data-area="content" id="content">
-        <div class="container">
-            <div class="row">
-                <div ng-view></div>
-            </div>
-        </div>
-    </div>
-    <div data-area="footer">
-        <div class="container">
-            <div class="row">
-                <section data-module="list" class="col-xs-12">
-                    <ul>
-                        <li>
-                            <a href="http://www.google.com">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.de">Link 2</a>
-                        </li>
-                    </ul>
-                </section>
-                <section data-module="list" class="col-xs-12">
-                    <ul>
-                        <li>
-                            <a href="http://www.google.com">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.de">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.com">Link 3</a>
-                        </li>
-                    </ul>
-                </section>
-                <section data-module="list" class="col-xs-12">
-                    <ul>
-                        <li>
-                            <a href="http://www.google.com">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.de">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.com">Link 3</a>
-                        </li>
-                    </ul>
-                </section>
-                <section data-module="list" class="col-xs-12">
-                    <ul>
-                        <li>
-                            <a href="http://www.google.com">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="http://www.google.de">Link 2</a>
-                        </li>
-                    </ul>
-                </section>
-                <section data-module="copyright" class="col-xs-12">
-                    &copy; 2015 - Against Nuclear Power
-                </section>
-            </div>
-        </div>
+        <div ng-view></div>
     </div>
 </div>
-
-
-<script src="js/angular.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/lib.min.js"></script>
-<script src="js/main.min.js"></script>
 </body>
 </html>

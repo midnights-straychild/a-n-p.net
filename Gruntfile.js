@@ -4,16 +4,15 @@ module.exports = function (grunt) {
     'use strict';
 
     var scriptSrcPath = './src/js/',
-        scriptDestPath = './js/',
         lessSrcPath = './src/less/',
-        lessDestPath = './css/',
+        lessDestPath = './',
         vendorSrcPath = './vendor/',
 
-        urlBase = 'localhost/',
-
         libJsFiles = [
-            scriptSrcPath + 'lib/*.js',
-            vendorSrcPath + 'twitter/bootstrap/js/*.js'
+            scriptSrcPath + 'lib/jquery.js',
+            scriptSrcPath + 'lib/bootstrap.js',
+            scriptSrcPath + 'lib/angular.js',
+            scriptSrcPath + 'lib/angular-*.js'
         ],
 
         mainJsFiles = [
@@ -39,21 +38,28 @@ module.exports = function (grunt) {
                 expand: true,
                 flatten: true,
                 src: [
-                    'node_modules/angular/angular.min.js',
-                    'node_modules/angular/angular.min.js.gzip',
-                    'node_modules/angular/angular.min.js.map'
+                    'node_modules/angular/angular.js',
+                    'node_modules/angular-route/angular-*.js'
                 ],
-                dest: 'js/'
+                dest: 'src/js/lib'
             },
             jquery: {
                 nonull: true,
                 expand: true,
                 flatten: true,
                 src: [
-                    'node_modules/jquery/dist/jquery.min.js',
-                    'node_modules/jquery/dist/jquery.min.map'
+                    'node_modules/jquery/dist/jquery.js'
                 ],
-                dest: 'js/'
+                dest: 'src/js/lib'
+            },
+            bootstrap: {
+                nonull: true,
+                expand: true,
+                flatten: true,
+                src: [
+                    vendorSrcPath + 'twitter/bootstrap/dist/js/bootstrap.js'
+                ],
+                dest: 'src/js/lib'
             }
         },
         less: {
@@ -63,10 +69,8 @@ module.exports = function (grunt) {
                     compile: true,
                     yuicompress: true,
                     sourceMap: true,
-                    sourceMapFilename: lessDestPath + 'bootstrap.css.map',
-                    sourceMapURL: '/css/bootstrap.css.map',
-                    sourceMapRootPath: urlBase,
-                    sourceMapBasepath: urlBase
+                    sourceMapBasepath: lessSrcPath,
+                    sourceMapFilename: lessDestPath + 'bootstrap.css.map'
                 },
                 files: {
                     'css/bootstrap.css': lessSrcPath + 'bootstrap.less'
@@ -76,14 +80,10 @@ module.exports = function (grunt) {
         uglify: {
             lib: {
                 options: {
-                    mangle: {
-                        except: ['jQuery', '$', '_', 'PB', 'pbsc', 'Spinner']
-                    },
-                    compress: true,
-                    sourceMap: scriptDestPath + 'lib.min.js.map',
-                    sourceMappingURL: urlBase + 'js/lib.min.js.map',
-                    sourceMapPrefix: 3,
-                    sourceMapRoot: urlBase + 'js/'
+                    mangle: false,
+                    compress: false,
+                    screwIE8: true,
+                    sourceMap: true
                 },
                 files: {
                     'js/lib.min.js': libJsFiles
@@ -91,14 +91,10 @@ module.exports = function (grunt) {
             },
             main: {
                 options: {
-                    mangle: {
-                        except: ['jQuery', '$', '_', 'PB', 'pbsc', 'Spinner']
-                    },
-                    compress: true,
-                    sourceMap: scriptDestPath + 'main.min.js.map',
-                    sourceMappingURL: urlBase + 'js/main.min.js.map',
-                    sourceMapPrefix: 3,
-                    sourceMapRoot: urlBase + 'js/'
+                    mangle: false,
+                    compress: false,
+                    screwIE8: true,
+                    sourceMap: true
                 },
                 files: {
                     'js/main.min.js': mainJsFiles

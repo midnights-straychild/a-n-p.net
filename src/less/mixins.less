@@ -303,6 +303,16 @@
     }
 }
 
+.list-vertical {
+    ul {
+        .clearfix;
+    }
+
+    li {
+        display: inline-block;
+    }
+}
+
 .link-box {
     a {
         .padding(5px);
@@ -322,10 +332,18 @@
         .padding(5px);
         .width(@length);
         .height(@length);
+        line-height: @length - 10px;
+        vertical-align: middle;
         background-color: @link-background-color;
 
         &:hover {
             color: #fff;
+            background-color: @link-hover-background-color;
+        }
+
+        &.active, &:active {
+            color: #fff;
+            text-decoration: none;
             background-color: @link-hover-background-color;
         }
     }
