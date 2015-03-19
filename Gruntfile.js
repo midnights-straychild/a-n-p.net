@@ -1,11 +1,11 @@
-/*global module */
-/* jslint node: true */
+/*jslint node: true */
 module.exports = function (grunt) {
     'use strict';
 
     var scriptSrcPath = './src/js/',
         lessSrcPath = './src/less/',
-        lessDestPath = './',
+        lessDestPath = './public/css/',
+        nodeSrcPath = './node_modules/',
         vendorSrcPath = './vendor/',
 
         libJsFiles = [
@@ -33,31 +33,15 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            angular: {
+            libJs: {
                 nonull: true,
                 expand: true,
                 flatten: true,
                 src: [
-                    'node_modules/angular/angular.js',
-                    'node_modules/angular-route/angular-*.js'
-                ],
-                dest: 'src/js/lib'
-            },
-            jquery: {
-                nonull: true,
-                expand: true,
-                flatten: true,
-                src: [
-                    'node_modules/jquery/dist/jquery.js'
-                ],
-                dest: 'src/js/lib'
-            },
-            bootstrap: {
-                nonull: true,
-                expand: true,
-                flatten: true,
-                src: [
-                    vendorSrcPath + 'twitter/bootstrap/dist/js/bootstrap.js'
+                    nodeSrcPath + 'angular/angular.js',
+                    nodeSrcPath + 'angular-route/angular-*.js',
+                    nodeSrcPath + 'jquery/dist/jquery.js',
+                    nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
                 ],
                 dest: 'src/js/lib'
             }
@@ -65,15 +49,15 @@ module.exports = function (grunt) {
         less: {
             default: {
                 options: {
-                    cleancss: true,
-                    compile: true,
-                    yuicompress: true,
+                    compress: true,
+                    optimization: 3,
                     sourceMap: true,
                     sourceMapBasepath: lessSrcPath,
-                    sourceMapFilename: lessDestPath + 'bootstrap.css.map'
+                    sourceMapFilename: lessDestPath + 'bootstrap.css.map',
+                    sourceMapURL: 'bootstrap.css.map'
                 },
                 files: {
-                    'css/bootstrap.css': lessSrcPath + 'bootstrap.less'
+                    'public/css/bootstrap.css': lessSrcPath + 'bootstrap.less'
                 }
             }
         },
@@ -81,35 +65,52 @@ module.exports = function (grunt) {
             lib: {
                 options: {
                     mangle: false,
-                    compress: false,
+                    compress: true,
                     screwIE8: true,
                     sourceMap: true
                 },
                 files: {
-                    'js/lib.min.js': libJsFiles
+                    'public/js/lib.min.js': libJsFiles
                 }
             },
             main: {
                 options: {
                     mangle: false,
-                    compress: false,
+                    compress: true,
                     screwIE8: true,
                     sourceMap: true
                 },
                 files: {
-                    'js/main.min.js': mainJsFiles
+                    'public/js/main.min.js': mainJsFiles
+                }
+            }
+        },
+        nodemon: {
+            dev: {
+                script: 'src/node/index.js',
+                options: {
+                    args: ['dev'],
+                    nodeArgs: ['--debug'],
+                    delay: 1000,
+                    watch: ['src/node/']
+                }
+            },
+            prod: {
+                script: 'src/node/index.js',
+                options: {
+                    args: ['prod']
                 }
             }
         },
         watch: {
-            minifyJs: {
+            js: {
                 files: mainJsFiles,
                 tasks: ['minifyJs'],
                 options: {
                     spawn: false
                 }
             },
-            minifyLess: {
+            less: {
                 files: lessSrcPath + '**',
                 tasks: ['minifyLess'],
                 options: {
@@ -128,8 +129,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-nodemon');
 
-    grunt.registerTask('test', ['jshint']);
+    grunt.registerTask('test', [
+        'jshint'
+    ]);
 
     grunt.registerTask('minify', [
         'minifyJs',
@@ -138,12 +142,26 @@ module.exports = function (grunt) {
 
     grunt.registerTask('minifyJs', [
         'jshint',
-        'copy',
+        'copy:libJs',
         'uglify:lib',
         'uglify:main'
     ]);
 
     grunt.registerTask('minifyLess', [
         'less:default'
+    ]);
+
+    grunt.registerTask('watchAssets', [
+        'watch'
+    ]);
+    grunt.registerTask('watchNode', [
+        'nodemon:dev'
+    ]);
+
+    grunt.registerTask('install', [
+        'npm-install',
+        'test',
+        'minify',
+        'nodemon:prod'
     ]);
 };

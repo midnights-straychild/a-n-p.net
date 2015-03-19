@@ -23,8 +23,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <script src="js/lib.min.js"></script>
-    <script src="js/main.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
 </head>
 <body ng-controller="mainController">
 <a href="#content" class="sr-only">Skip to main content</a>
@@ -32,7 +31,7 @@
 <div data-area="sidebar">
     <section data-module="logo">
         <a active-link="active" href="#/" title="Against Nuclear Power - Home">
-            <img src="img/logo.png" alt="Logo"/>
+            <img src="img/logo-sm.png" alt="Logo" height="64" width="64"/>
         </a>
     </section>
     <section data-module="list">
@@ -68,5 +67,7 @@
 
     </section>
 </div>
+<script src="js/lib.min.js"></script>
+<script src="js/main.min.js"></script>
 </body>
 </html>
