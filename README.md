@@ -16,5 +16,7 @@ Prototype for an EVE Online corp homepage with map and API access.
 ### Linux
 
 `git clone https://github.com/midnights-straychild/a-n-p.net.git`
+
 `npm install`
+
 `grunt install`
