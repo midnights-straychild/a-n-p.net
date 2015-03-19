@@ -1,11 +1,10 @@
-/*global module */
-/* jslint node: true */
+/*jslint node: true */
 module.exports = function (grunt) {
     'use strict';
 
     var scriptSrcPath = './src/js/',
         lessSrcPath = './src/less/',
-        lessDestPath = './',
+        lessDestPath = './public/css/',
         vendorSrcPath = './vendor/',
 
         libJsFiles = [
@@ -65,15 +64,15 @@ module.exports = function (grunt) {
         less: {
             default: {
                 options: {
-                    cleancss: true,
-                    compile: true,
-                    yuicompress: true,
+                    compress: true,
+                    optimization: 3,
                     sourceMap: true,
                     sourceMapBasepath: lessSrcPath,
-                    sourceMapFilename: lessDestPath + 'bootstrap.css.map'
+                    sourceMapFilename: lessDestPath + 'bootstrap.css.map',
+                    sourceMapURL: 'bootstrap.css.map'
                 },
                 files: {
-                    'css/bootstrap.css': lessSrcPath + 'bootstrap.less'
+                    'public/css/bootstrap.css': lessSrcPath + 'bootstrap.less'
                 }
             }
         },
@@ -81,23 +80,34 @@ module.exports = function (grunt) {
             lib: {
                 options: {
                     mangle: false,
-                    compress: false,
+                    compress: true,
                     screwIE8: true,
                     sourceMap: true
                 },
                 files: {
-                    'js/lib.min.js': libJsFiles
+                    'public/js/lib.min.js': libJsFiles
                 }
             },
             main: {
                 options: {
                     mangle: false,
-                    compress: false,
+                    compress: true,
                     screwIE8: true,
                     sourceMap: true
                 },
                 files: {
-                    'js/main.min.js': mainJsFiles
+                    'public/js/main.min.js': mainJsFiles
+                }
+            }
+        },
+        nodemon: {
+            dev: {
+                script: 'src/node/index.js',
+                options: {
+                    args: ['dev'],
+                    nodeArgs: ['--debug'],
+                    delay: 1000,
+                    watch: ['src/node/']
                 }
             }
         },
@@ -128,6 +138,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-nodemon');
 
     grunt.registerTask('test', ['jshint']);
 

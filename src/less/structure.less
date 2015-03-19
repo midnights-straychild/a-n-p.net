@@ -72,7 +72,17 @@ body {
     }
 }
 
+@media (max-width: @screen-desktop) {
+    body {
+        background: fixed center center url("../img/bg-md.jpg");
+    }
+}
+
 @media (max-width: @screen-tablet) {
+    body {
+        background: fixed center center url("../img/bg-sm.jpg");
+    }
+
     [data-area="main"] {
         .content-wrapper {
             .padding-top(64px);
@@ -86,6 +96,9 @@ body {
 }
 
 @media (max-width: @screen-phone) {
+    body {
+        background: fixed center center url("../img/bg-xs.jpg");
+    }
 
     .page-headline h1 {
         margin-top: 15px;
