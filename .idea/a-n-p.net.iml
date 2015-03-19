@@ -34,12 +34,12 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
-          <root url="phar://$MODULE_DIR$/vendor/symfony/dependency-injection/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
+          <root url="phar://E:/xampp/htdocs/a-n-p.net/composer.phar" />
+          <root url="phar://E:/xampp/htdocs/a-n-p.net/vendor/symfony/dependency-injection/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
-          <root url="phar://$MODULE_DIR$/vendor/symfony/dependency-injection/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
+          <root url="phar://E:/xampp/htdocs/a-n-p.net/composer.phar" />
+          <root url="phar://E:/xampp/htdocs/a-n-p.net/vendor/symfony/dependency-injection/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -103,6 +103,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="a-n-p.net node_modules" level="project" />
   </component>
 </module>
-

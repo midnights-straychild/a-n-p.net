@@ -41,5 +41,9 @@
         "grunt-npm-install": ">=0.2.0"
     },
     "keywords": [],
-    "releaseFolder": "release"
+    "releaseFolder": "release",
+    "scripts": {
+        "test": "npm run ./node_modules/grunt-cli/bin/grunt test",
+        "minify": "npm run ./node_modules/grunt-cli/bin/grunt minify"
+    }
 }
