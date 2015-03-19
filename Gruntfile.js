@@ -6,7 +6,6 @@ module.exports = function (grunt) {
         lessSrcPath = './src/less/',
         lessDestPath = './public/css/',
         nodeSrcPath = './node_modules/',
-        vendorSrcPath = './vendor/',
 
         libJsFiles = [
             scriptSrcPath + 'lib/jquery.js',
@@ -164,4 +163,6 @@ module.exports = function (grunt) {
         'minify',
         'nodemon:prod'
     ]);
+
+    grunt.registerTask('default', ['test']);
 };
