@@ -7,45 +7,41 @@ var eveApp = angular.module('eveApp', ['ngRoute']);
 // configure our routes
 eveApp.config(function ($routeProvider) {
     'use strict';
+
     $routeProvider
         .when('/', {
-            templateUrl: 'pages/home.html',
-            controller: 'mainController'
+            template: '<div ng-include="templateUrl">Loading...</div>',
+            name: 'Home',
+            controller: 'contentController'
         })
-        .when('/about', {
-            templateUrl: 'pages/about.html',
-            controller: 'aboutController'
-        })
-        .when('/impressum', {
-            templateUrl: 'pages/impressum.html',
-            controller: 'impressumController'
-        })
-        .when('/contact', {
-            templateUrl: 'pages/contact.html',
-            controller: 'contactController'
+        .when('/c/:name', {
+            template: '<div ng-include="templateUrl">Loading...</div>',
+            controller: 'contentController'
         });
 });
 
 // create the controller and inject Angular's $scope
-eveApp.controller('mainController', function ($scope) {
+eveApp.controller('headController', function ($scope) {
     'use strict';
-    // create a message to display in our view
-    $scope.message = 'Everyone come and see how good I look!';
+    $scope.pageTitle = '[A-N-P] Against Nuclear Power - Corporation HQ - ';
+
+    window.$rootScope.$on('contentChange', function (event, args) {
+        event.currentScope.pageTitle += args.contentName;
+    });
 });
 
-eveApp.controller('aboutController', function ($scope) {
+eveApp.controller('contentController', function ($scope, $routeParams) {
     'use strict';
-    $scope.message = 'Look! I am an about page.';
-});
+    $scope.templateUrl = 'pages/' + $routeParams.name + '.html';
+    $scope.message = $routeParams.name.capitalize();
+    $scope.parent.controller.headController.pageTitle += $routeParams.name;
 
-eveApp.controller('contactController', function ($scope) {
-    'use strict';
-    $scope.message = 'Contact us! JK. This is just a demo.';
-});
-
-eveApp.controller('impressumController', function ($scope) {
-    'use strict';
-    $scope.message = 'Impressum';
+    window.$rootScope.$emit(
+        'contentChange',
+        {
+            'contentName': $routeParams.name.capitalize()
+        }
+    );
 });
 
 eveApp.directive('activeLink', ['$location', function (location) {
