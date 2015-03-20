@@ -6,7 +6,6 @@ module.exports = function (grunt) {
         lessSrcPath = './src/less/',
         lessDestPath = './public/css/',
         nodeSrcPath = './node_modules/',
-        vendorSrcPath = './vendor/',
 
         libJsFiles = [
             scriptSrcPath + 'lib/jquery.js',
@@ -121,7 +120,6 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-npm-install');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -164,4 +162,6 @@ module.exports = function (grunt) {
         'minify',
         'nodemon:prod'
     ]);
+
+    grunt.registerTask('default', ['test']);
 };

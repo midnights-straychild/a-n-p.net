@@ -16,6 +16,10 @@ eveApp.config(function ($routeProvider) {
             templateUrl: 'pages/about.html',
             controller: 'aboutController'
         })
+        .when('/impressum', {
+            templateUrl: 'pages/impressum.html',
+            controller: 'impressumController'
+        })
         .when('/contact', {
             templateUrl: 'pages/contact.html',
             controller: 'contactController'
@@ -37,6 +41,11 @@ eveApp.controller('aboutController', function ($scope) {
 eveApp.controller('contactController', function ($scope) {
     'use strict';
     $scope.message = 'Contact us! JK. This is just a demo.';
+});
+
+eveApp.controller('impressumController', function ($scope) {
+    'use strict';
+    $scope.message = 'Impressum';
 });
 
 eveApp.directive('activeLink', ['$location', function (location) {
