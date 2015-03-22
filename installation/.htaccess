@@ -1,0 +1,23 @@
+RewriteEngine On
+RewriteBase /a-n-p.net/
+
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+<Files ~ "\.(htm|html|css|js|php)$">
+  AddDefaultCharset UTF-8
+  DefaultLanguage de-DE
+</Files>
+
+<IfModule expires_module>
+    <FilesMatch "\.(js|jpg|jpeg|gif|png|css|ttf|map)$">
+        ExpiresActive on
+        ExpiresDefault "access plus 1 week"
+    </FilesMatch>
+</IfModule>
+
+<IfModule deflate_module>
+    SetOutputFilter DEFLATE
+</IfModule>
