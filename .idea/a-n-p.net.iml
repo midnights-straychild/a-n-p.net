@@ -34,10 +34,10 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://C:/xampp/htdocs/a-n-p.net/composer.phar" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://C:/xampp/htdocs/a-n-p.net/composer.phar" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -106,3 +106,4 @@
     <orderEntry type="library" name="a-n-p.net node_modules" level="project" />
   </component>
 </module>
+
