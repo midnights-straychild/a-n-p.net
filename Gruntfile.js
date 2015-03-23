@@ -66,8 +66,7 @@ module.exports = function (grunt) {
                 options: {
                     mangle: false,
                     compress: true,
-                    screwIE8: true,
-                    sourceMap: false
+                    sourceMap: true
                 },
                 files: {
                     'public/js/lib.min.js': libJsFiles
@@ -76,9 +75,8 @@ module.exports = function (grunt) {
             main: {
                 options: {
                     mangle: false,
-                    compress: false,
-                    screwIE8: true,
-                    sourceMap: false
+                    compress: true,
+                    sourceMap: true
                 },
                 files: {
                     'public/js/main.min.js': mainJsFiles
@@ -117,8 +115,11 @@ module.exports = function (grunt) {
                     spawn: false
                 }
             }
+        },
+        fetchAssets: {
+
         }
-    });
+    });grunt
 
     grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -128,7 +129,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-curl');
+    grunt.loadNpmTasks('grunt-zip');
 
     grunt.registerTask('test', [
         'jshint'

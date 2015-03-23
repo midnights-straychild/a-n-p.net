@@ -34,10 +34,10 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
+          <root url="phar://C:/xampp/htdocs/a-n-p.net/composer.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
+          <root url="phar://C:/xampp/htdocs/a-n-p.net/composer.phar" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -103,6 +103,6 @@
     </orderEntry>
     <orderEntry type="library" name="Node.js v0.10.33 Core Modules" level="application" />
     <orderEntry type="library" name="a-n-p.net node_modules" level="project" />
+    <orderEntry type="library" name="a-n-p.net node_modules" level="project" />
   </component>
 </module>
-
