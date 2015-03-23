@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global module*/
 module.exports = function (grunt) {
     'use strict';
 
@@ -179,7 +180,7 @@ module.exports = function (grunt) {
         'less:default'
     ]);
 
-    grunt.registerTask('watchAssets', [
+    grunt.registerTask('watchAll', [
         'watch'
     ]);
     grunt.registerTask('watchNode', [
