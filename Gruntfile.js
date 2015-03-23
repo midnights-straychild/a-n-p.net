@@ -8,10 +8,11 @@ module.exports = function (grunt) {
         nodeSrcPath = './node_modules/',
 
         libJsFiles = [
+            scriptSrcPath + 'lib/prototypes.js',
             scriptSrcPath + 'lib/jquery.js',
             scriptSrcPath + 'lib/bootstrap.js',
             scriptSrcPath + 'lib/angular.js',
-            scriptSrcPath + 'lib/angular-*.js'
+            scriptSrcPath + 'lib/angular-route.js'
         ],
 
         mainJsFiles = [
@@ -38,7 +39,7 @@ module.exports = function (grunt) {
                 flatten: true,
                 src: [
                     nodeSrcPath + 'angular/angular.js',
-                    nodeSrcPath + 'angular-route/angular-*.js',
+                    nodeSrcPath + 'angular-route/angular-route.js',
                     nodeSrcPath + 'jquery/dist/jquery.js',
                     nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
                 ],
