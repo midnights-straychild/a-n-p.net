@@ -99,6 +99,31 @@ module.exports = function (grunt) {
                 }
             }
         },
+        'curl-dir': {
+            db: {
+                src: [
+                    'http://cdn1.eveonline.com/data/Tiamat_1.0_110751_db.zip'
+                ],
+                dest: 'cache/db'
+            },
+            assets: {
+                src: [
+                    'http://content.eveonline.com/data/Tiamat_1.0_Icons.zip',
+                    'http://content.eveonline.com/data/Tiamat_1.0_Types.zip'
+                ],
+                dest: 'cache/assets/'
+            }
+        },
+        unzip: {
+            'assets-image': {
+                src: 'cache/assets/*.zip',
+                dest: 'public/img/'
+            },
+            db: {
+                src: 'cache/db/*.zip',
+                dest: 'db/'
+            }
+        },
         watch: {
             js: {
                 files: mainJsFiles,
@@ -118,7 +143,7 @@ module.exports = function (grunt) {
         fetchAssets: {
 
         }
-    });grunt
+    });
 
     grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -158,6 +183,13 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('watchNode', [
         'nodemon:dev'
+    ]);
+
+    grunt.registerTask('fetchAssets', [
+        'curl-dir:assets',
+        'unzip:assets-image',
+        'curl-dir:db',
+        'unzip:db'
     ]);
 
     grunt.registerTask('install', [
