@@ -119,7 +119,7 @@ module.exports = function (grunt) {
         fetchAssets: {
 
         }
-    });grunt
+    });
 
     grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-clean');
