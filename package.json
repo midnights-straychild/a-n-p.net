@@ -40,8 +40,10 @@
     "grunt-contrib-yuidoc": ">=0.5.2",
     "grunt-curl": "^2.1.0",
     "grunt-nodemon": ">=0.4.0",
-    "grunt-npm-install": ">=0.2.0",
-    "grunt-yui-compressor": ">=0.1.1"
+      "grunt-yui-compressor": ">=0.1.1",
+      "grunt-uncss": "~0.4.1",
+      "grunt-autoprefixer": "~2.2.0",
+      "grunt-zip": "~0.16.2"
   },
   "keywords": [],
   "releaseFolder": "release",

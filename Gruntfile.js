@@ -62,6 +62,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+        uncss: {
+            dist: {
+                files: {
+                    'public/css/bootstrap.css': ['public/index.html', 'pages/*.html']
+                }
+            }
+        },
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 versions', 'ie 9']
+            },
+            noDest: {
+                src: 'public/css/bootstrap.css' // globbing is also possible here
+            }
+        },
         uglify: {
             lib: {
                 options: {
@@ -119,11 +134,11 @@ module.exports = function (grunt) {
         unzip: {
             'assets-image': {
                 src: 'cache/assets/*.zip',
-                dest: 'public/img/'
+                dest: 'public/assets/img/'
             },
             db: {
                 src: 'cache/db/*.zip',
-                dest: 'db/'
+                dest: 'assets/db/'
             }
         },
         watch: {
@@ -141,13 +156,9 @@ module.exports = function (grunt) {
                     spawn: false
                 }
             }
-        },
-        fetchAssets: {
-
         }
     });
 
-    grunt.loadNpmTasks('grunt-npm-install');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -155,8 +166,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-uncss');
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-zip');
 
@@ -180,6 +192,12 @@ module.exports = function (grunt) {
         'less:default'
     ]);
 
+    grunt.registerTask('minifyLessProd', [
+        'less:default',
+        'uncss',
+        'autoprefixer'
+    ]);
+
     grunt.registerTask('watchAll', [
         'watch'
     ]);
@@ -195,9 +213,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('install', [
-        'npm-install',
+        'fetchAssets',
+        'minifyLessProd',
+        'minifyJs',
         'test',
-        'minify',
         'nodemon:prod'
     ]);
 

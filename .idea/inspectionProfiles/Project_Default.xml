@@ -261,6 +261,7 @@
     <inspection_tool class="InnerHTMLJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="InvisibleCharacter" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="JSAccessibilityCheck" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
