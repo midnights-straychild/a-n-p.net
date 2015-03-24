@@ -173,7 +173,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-zip');
 
     grunt.registerTask('test', [
-        'jshint'
+        'jshint',
+        'minifyJs',
+        'minifyLessProd'
     ]);
 
     grunt.registerTask('minify', [

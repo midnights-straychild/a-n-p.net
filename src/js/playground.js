@@ -20,28 +20,26 @@ eveApp.config(function ($routeProvider) {
         });
 });
 
-// create the controller and inject Angular's $scope
-eveApp.controller('headController', function ($scope) {
-    'use strict';
-    $scope.pageTitle = '[A-N-P] Against Nuclear Power - Corporation HQ - ';
-
-    window.$rootScope.$on('contentChange', function (event, args) {
-        event.currentScope.pageTitle += args.contentName;
-    });
-});
-
-eveApp.controller('contentController', function ($scope, $routeParams) {
+eveApp.controller('contentController', function ($scope, $routeParams, $rootScope) {
     'use strict';
     $scope.templateUrl = 'pages/' + $routeParams.name + '.html';
     $scope.message = $routeParams.name.capitalize();
-    $scope.parent.controller.headController.pageTitle += $routeParams.name;
+    $scope.$parent.$$childHead.pageTitle = '[A-N-P] Against Nuclear Power - Corporation HQ - ' + $routeParams.name;
 
-    window.$rootScope.$emit(
+    $rootScope.$emit(
         'contentChange',
         {
             'contentName': $routeParams.name.capitalize()
         }
     );
+});
+
+// create the controller and inject Angular's $scope
+eveApp.controller('headController', function ($rootScope) {
+    'use strict';
+    $rootScope.$on('contentChange', function (event, args) {
+        event.currentScope.pageTitle = '[A-N-P] Against Nuclear Power - Corporation HQ - ' + args.contentName;
+    });
 });
 
 eveApp.directive('activeLink', ['$location', function (location) {
