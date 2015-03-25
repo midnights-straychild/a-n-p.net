@@ -1,6 +1,5 @@
-composer.phar
-vendor/
 node_modules/
+cache/
 assets/db/
 public/js/
 public/css/
