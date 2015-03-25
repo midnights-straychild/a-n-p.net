@@ -49,11 +49,10 @@
     "grunt-npm-install": ">=0.2.0",
     "grunt-protractor-runner": "^1.2.1",
     "grunt-yui-compressor": ">=0.1.1",
-    "karma": "^0.12.31"
-      "grunt-yui-compressor": ">=0.1.1",
-      "grunt-uncss": "~0.4.1",
-      "grunt-autoprefixer": "~2.2.0",
-      "grunt-zip": "~0.16.2"
+    "karma": "^0.12.31",
+    "grunt-uncss": "~0.4.1",
+    "grunt-autoprefixer": "~2.2.0",
+    "grunt-zip": "~0.16.2"
   },
   "keywords": [],
   "releaseFolder": "release",
