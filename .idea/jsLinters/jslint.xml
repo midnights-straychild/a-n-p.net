@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JSLintConfiguration" json="true">
     <option browser="true" />
+    <option forin="true" />
     <option indent="4" />
     <option maxerr="50" />
     <option maxlen="120" />
