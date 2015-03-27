@@ -65,7 +65,13 @@ module.exports = function (grunt) {
         uncss: {
             dist: {
                 files: {
-                    'public/css/bootstrap.css': ['public/index.html', 'pages/*.html']
+                    'public/css/bootstrap.css': [
+                        'public/index.html',
+                        'pages/home.html',
+                        'pages/contact.html',
+                        'pages/about.html',
+                        'pages/impressum.html'
+                    ]
                 }
             }
         },
