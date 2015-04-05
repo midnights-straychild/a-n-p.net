@@ -20,3 +20,7 @@ Prototype for an EVE Online corp homepage with map and API access.
 `npm install`
 
 `grunt install`
+
+### Ressources
+
+[EVE Technology and Research Center|https://forums.eveonline.com/default.aspx?g=topics&f=263] (converted DB dumps)

@@ -7,7 +7,6 @@ var eveApp = angular.module('eveApp', ['ngRoute']);
 // configure our routes
 eveApp.config(function ($routeProvider) {
     'use strict';
-
     $routeProvider
         .when('/', {
             template: '<div ng-include="templateUrl">Loading...</div>',

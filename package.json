@@ -27,7 +27,11 @@
     "angular-route": ">=1.3.15",
     "bootstrap": ">=3.3.4",
     "jquery": ">=2.1.3",
-    "neow": ">=1.0.0"
+    "neow": ">=1.0.0",
+    "sqlite3": "~3.0.5",
+    "passport-eveonline": "~0.1.1",
+    "eveonlinejs": "0.0.1",
+    "global-tunnel": "~1.2.0"
   },
   "devDependencies": {
     "grunt": ">=0.4.5",
@@ -51,9 +55,9 @@
     "grunt-npm-install": ">=0.2.0",
     "grunt-protractor-runner": "^1.2.1",
     "grunt-uncss": "~0.4.1",
-    "grunt-yui-compressor": ">=0.1.1",
-    "grunt-zip": "~0.16.2",
-    "karma": "^0.12.31"
+    "grunt-autoprefixer": "~2.2.0",
+    "grunt-zip": "~0.16.2"
+    "grunt-git": "~0.3.4"
   },
   "keywords": [],
   "releaseFolder": "release",
