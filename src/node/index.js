@@ -1,6 +1,6 @@
 /*jslint node: true */
 
-require('./https-proxy.js')(true);
+//require('./https-proxy.js')(true);
 //require('./http-proxy.js')();
 
 console.log('Hello World');
@@ -49,20 +49,32 @@ db.serialize(function () {
 db.close();
 
 
-//eveonlinejs.setParams({
-//    keyID: config.api.ceo.keyID,
-//    vCode: config.api.ceo.vCode
-//});
-//
-//eveonlinejs.fetch('eve:SkillTree', function (err, result) {
-//    'use strict';
-//    var groupID;
-//
-//    if (err) {
-//        throw err;
-//    }
-//
-//    for (groupID in result.skillGroups) {
-//        console.log(result.skillGroups[groupID].groupName);
-//    }
-//});
+eveonlinejs.setParams({
+    keyID: config.api.ceo.keyID,
+    vCode: config.api.ce.vCode
+});
+
+eveonlinejs.fetch('eve:SkillTree', function (err, result) {
+    'use strict';
+    var groupID, skillGroup, skillID;
+
+    if (err) {
+        switch (err.code) {
+            case 'ETIMEDOUT':
+                console.log('The request timed out. Sorry...');
+                break;
+            default:
+                throw err;
+        }
+    } else {
+        for (groupID in result.skillGroups) {
+            skillGroup = result.skillGroups[groupID];
+            console.log(skillGroup);
+            console.log(skillGroup.groupName);
+            for (skillID in skillGroup) {
+                console.log(skillGroup[skillID]);
+                console.log(skillID + ' ' + skillGroup[skillID].typeName + ': ' + skillGroup[skillID].rank);
+            }
+        }
+    }
+});
