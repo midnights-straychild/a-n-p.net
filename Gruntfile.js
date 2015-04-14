@@ -23,6 +23,16 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        clean: {
+            install: [
+                './public/css/',
+                './public/js/',
+                './src/js/lib/'
+            ],
+            cache: [
+                './cache'
+            ]
+        },
         jshint: {
             gruntfile: {
                 src: ['./Gruntfile.js']
@@ -65,7 +75,7 @@ module.exports = function (grunt) {
         uncss: {
             dist: {
                 files: {
-                    'public/css/bootstrap.css': ['public/index.html', 'pages/*.html']
+                    'public/css/bootstrap.css': ['./public/index.html', './public/pages/*.html']
                 }
             }
         },
@@ -119,7 +129,7 @@ module.exports = function (grunt) {
         'curl-dir': {
             db: {
                 src: [
-                    'http://cdn1.eveonline.com/data/Tiamat_1.0_110751_db.zip'
+                    'https://www.fuzzwork.co.uk/dump/scylla-1.111482/eve.db.bz2'
                 ],
                 dest: 'cache/db'
             },
@@ -133,12 +143,12 @@ module.exports = function (grunt) {
         },
         unzip: {
             'assets-image': {
-                src: 'cache/assets/*.zip',
-                dest: 'public/assets/img/'
+                src: './cache/assets/*.zip',
+                dest: './public/assets/img/'
             },
             db: {
-                src: 'cache/db/*.zip',
-                dest: 'assets/db/'
+                src: './cache/db/eve.db.bz2',
+                dest: './assets/db/'
             }
         },
         watch: {
