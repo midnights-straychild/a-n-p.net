@@ -24,5 +24,6 @@
       "username": "rlauseker",
       "password": "749514Pb"
     }
-  }
+  },
+  "dbPath": "./assets/db/eve.db"
 }

@@ -17,6 +17,7 @@ module.exports = function (grunt) {
         ],
 
         mainJsFiles = [
+            scriptSrcPath + '/controller/*.js',
             scriptSrcPath + '*.js'
         ];
 
@@ -59,19 +60,6 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'public/css/bootstrap.css': lessSrcPath + 'bootstrap.less'
-                }
-            }
-        },
-        uncss: {
-            dist: {
-                files: {
-                    'public/css/bootstrap.css': [
-                        'public/index.html',
-                        'pages/home.html',
-                        'pages/contact.html',
-                        'pages/about.html',
-                        'pages/impressum.html'
-                    ]
                 }
             }
         },
@@ -125,7 +113,7 @@ module.exports = function (grunt) {
         'curl-dir': {
             db: {
                 src: [
-                    'http://cdn1.eveonline.com/data/Tiamat_1.0_110751_db.zip'
+                    'https://www.fuzzwork.co.uk/dump/scylla-1.111482/eve.db.bz2'
                 ],
                 dest: 'cache/db'
             },
@@ -141,10 +129,6 @@ module.exports = function (grunt) {
             'assets-image': {
                 src: 'cache/assets/*.zip',
                 dest: 'public/assets/img/'
-            },
-            db: {
-                src: 'cache/db/*.zip',
-                dest: 'assets/db/'
             }
         },
         watch: {
@@ -162,6 +146,18 @@ module.exports = function (grunt) {
                     spawn: false
                 }
             }
+        },
+        gulp: {
+            decompressDb: function () {
+                var gulp = require('gulp'),
+                    bzip2 = require('decompress-bzip2'),
+                    vinylAssign = require('vinyl-assign');
+
+                return gulp.src('cache/db/*.bz2')
+                    .pipe(vinylAssign({extract: true}))
+                    .pipe(bzip2())
+                    .pipe(gulp.dest('assets/db'));
+            }
         }
     });
 
@@ -173,10 +169,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-uncss');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-zip');
+    grunt.loadNpmTasks('grunt-if-missing');
+    grunt.loadNpmTasks('grunt-gulp');
 
     grunt.registerTask('test', [
         'jshint',
@@ -197,12 +194,12 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('minifyLess', [
-        'less:default'
+        'less:default',
+        'autoprefixer'
     ]);
 
     grunt.registerTask('minifyLessProd', [
         'less:default',
-        'uncss',
         'autoprefixer'
     ]);
 
@@ -214,10 +211,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('fetchAssets', [
-        'curl-dir:assets',
+        'if-missing:curl-dir:assets',
         'unzip:assets-image',
-        'curl-dir:db',
-        'unzip:db'
+        'if-missing:curl-dir:db',
+        'gulp:decompressDb'
     ]);
 
     grunt.registerTask('install', [
