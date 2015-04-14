@@ -6,6 +6,6 @@
     <option indent="4" />
     <option maxerr="50" />
     <option maxlen="120" />
+    <option white="true" />
   </component>
 </project>
-
