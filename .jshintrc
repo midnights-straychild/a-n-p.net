@@ -23,7 +23,7 @@
     "nomen": false,
     "quotmark": "single",
     "nonew": true,
-    "maxparams": 4,
+    "maxparams": 10,
   "maxdepth": 5,
   "maxcomplexity": 20,
     "globals": {

@@ -8,7 +8,7 @@ Prototype for an EVE Online corp homepage with map and API access.
 
 ### Prerequisites
 
-* NodeJs 0.10
+* NodeJs 0.12
 * NPM
 * MongoDB
 * SQLite
@@ -21,6 +21,11 @@ Prototype for an EVE Online corp homepage with map and API access.
 
 `grunt install`
 
+### Vendors
+
+
+
 ### Ressources
 
+[Ovid's Starmap](https://github.com/Ovid/ovid.github.com)
 [EVE Technology and Research Center](https://forums.eveonline.com/default.aspx?g=topics&f=263) (converted DB dumps)

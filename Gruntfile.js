@@ -7,13 +7,15 @@ module.exports = function (grunt) {
         lessSrcPath = './src/less/',
         lessDestPath = './public/css/',
         nodeSrcPath = './node_modules/',
+        vendorSrcPath = './vendor/',
 
         libJsFiles = [
             scriptSrcPath + 'lib/prototypes.js',
             scriptSrcPath + 'lib/jquery.js',
             scriptSrcPath + 'lib/bootstrap.js',
             scriptSrcPath + 'lib/angular.js',
-            scriptSrcPath + 'lib/angular-route.js'
+            scriptSrcPath + 'lib/angular-route.js',
+            scriptSrcPath + 'lib/starmap.js'
         ],
 
         mainJsFiles = [
@@ -54,6 +56,15 @@ module.exports = function (grunt) {
                     nodeSrcPath + 'angular-route/angular-route.js',
                     nodeSrcPath + 'jquery/dist/jquery.js',
                     nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
+                ],
+                dest: 'src/js/lib'
+            },
+            vendorJs: {
+                nonull: true,
+                expand: true,
+                flatten: true,
+                src: [
+                    vendorSrcPath + 'starmap/js/starmap.js'
                 ],
                 dest: 'src/js/lib'
             }
@@ -168,6 +179,14 @@ module.exports = function (grunt) {
                     .pipe(bzip2())
                     .pipe(gulp.dest('assets/db'));
             }
+        },
+        gitclone: {
+            starmap: {
+                options: {
+                    repository: 'https://github.com/midnights-straychild/ovid.github.com.git',
+                    directory: './vendor/starmap'
+                }
+            }
         }
     });
 
@@ -184,6 +203,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-if-missing');
     grunt.loadNpmTasks('grunt-gulp');
+    grunt.loadNpmTasks('grunt-git');
 
     grunt.registerTask('test', [
         'jshint',
@@ -199,6 +219,7 @@ module.exports = function (grunt) {
     grunt.registerTask('minifyJs', [
         'jshint',
         'copy:libJs',
+        'copy:vendorJs',
         'uglify:lib',
         'uglify:main'
     ]);
@@ -228,6 +249,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('install', [
+        'gitclone',
         'fetchAssets',
         'minifyLessProd',
         'minifyJs',

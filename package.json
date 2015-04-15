@@ -34,6 +34,7 @@
     "express": "^4.12.3"
   },
   "devDependencies": {
+    "decompress-bzip2": "^3.0.0",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.2.0",
     "grunt-cli": "^0.1.13",
@@ -49,18 +50,17 @@
     "grunt-contrib-yuidoc": "^0.5.2",
     "grunt-curl": "^2.1.0",
     "grunt-git": "^0.3.4",
+    "grunt-gulp": "^0.1.0",
+    "grunt-if-missing": "^1.0.0",
     "grunt-karma": "^0.10.1",
     "grunt-nodemon": "^0.4.0",
     "grunt-npm-install": "^0.2.0",
     "grunt-protractor-runner": "^1.2.1",
     "grunt-yui-compressor": "^0.1.1",
     "grunt-zip": "^0.16.2",
-    "karma": "^0.12.31",
-    "grunt-if-missing": "^1.0.0",
     "gulp": "^3.8.11",
-    "grunt-gulp": "^0.1.0",
-    "vinyl-assign": "^1.1.0",
-    "decompress-bzip2": "^3.0.0"
+    "karma": "^0.12.31",
+    "vinyl-assign": "^1.1.0"
   },
   "keywords": [],
   "releaseFolder": "release",
