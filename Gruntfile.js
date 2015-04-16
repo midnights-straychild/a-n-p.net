@@ -12,6 +12,7 @@ module.exports = function (grunt) {
         libJsFiles = [
             scriptSrcPath + 'lib/prototypes.js',
             scriptSrcPath + 'lib/jquery.js',
+            scriptSrcPath + 'lib/jquery-ui.js',
             scriptSrcPath + 'lib/bootstrap.js',
             scriptSrcPath + 'lib/angular.js',
             scriptSrcPath + 'lib/angular-route.js',
@@ -19,8 +20,9 @@ module.exports = function (grunt) {
         ],
 
         mainJsFiles = [
-            scriptSrcPath + '/controller/*.js',
-            scriptSrcPath + '*.js'
+            scriptSrcPath + 'controller/*.js',
+            scriptSrcPath + '*.js',
+            vendorSrcPath + 'starmap/js/*.js'
         ];
 
     // Project configuration.
@@ -55,7 +57,8 @@ module.exports = function (grunt) {
                     nodeSrcPath + 'angular/angular.js',
                     nodeSrcPath + 'angular-route/angular-route.js',
                     nodeSrcPath + 'jquery/dist/jquery.js',
-                    nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
+                    nodeSrcPath + 'bootstrap/dist/js/bootstrap.js',
+                    'cache/assets/js/jquery-ui-1.11.4/jquery-ui.js'
                 ],
                 dest: 'src/js/lib'
             },
@@ -138,18 +141,28 @@ module.exports = function (grunt) {
                 ],
                 dest: 'cache/db'
             },
-            assets: {
+            'assets-image': {
                 src: [
                     'http://content.eveonline.com/data/Tiamat_1.0_Icons.zip',
                     'http://content.eveonline.com/data/Tiamat_1.0_Types.zip'
                 ],
-                dest: 'cache/assets/'
+                dest: 'cache/assets/img'
+            },
+            'assets-js': {
+                src: [
+                    'http://jqueryui.com/resources/download/jquery-ui-1.11.4.zip'
+                ],
+                dest: 'cache/assets/js'
             }
         },
         unzip: {
             'assets-image': {
-                src: 'cache/assets/*.zip',
+                src: 'cache/assets/img/*.zip',
                 dest: 'public/assets/img/'
+            },
+            'assets-js': {
+                src: 'cache/assets/js/*.zip',
+                dest: 'cache/assets/js/'
             }
         },
         watch: {

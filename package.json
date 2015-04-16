@@ -26,12 +26,12 @@
     "angular": "latest",
     "angular-route": "latest",
     "bootstrap": "latest",
+    "eveonlinejs": "latest",
+    "express": "^4.12.3",
     "jquery": "latest",
     "neow": "latest",
-    "sqlite3": "latest",
     "passport-eveonline": "latest",
-    "eveonlinejs": "latest",
-    "express": "^4.12.3"
+    "sqlite3": "latest"
   },
   "devDependencies": {
     "decompress-bzip2": "^3.0.0",
