@@ -97,7 +97,9 @@ module.exports = function (grunt) {
             lib: {
                 options: {
                     mangle: false,
-                    compress: true,
+                    compress: {
+                        'drop_console': true
+                    },
                     sourceMap: true
                 },
                 files: {
@@ -106,7 +108,7 @@ module.exports = function (grunt) {
             },
             main: {
                 options: {
-                    mangle: true,
+                    mangle: false,
                     compress: true,
                     sourceMap: true
                 },
