@@ -196,7 +196,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -207,7 +206,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-if-missing');
     grunt.loadNpmTasks('grunt-gulp');
     grunt.loadNpmTasks('grunt-git');
-    grunt.loadNpmTasks('grunt-if-missing');
 
     grunt.registerTask('unpackDb', function () {
         var Decompress = require('decompress'),
