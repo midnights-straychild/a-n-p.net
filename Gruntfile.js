@@ -96,11 +96,12 @@ module.exports = function (grunt) {
         uglify: {
             lib: {
                 options: {
-                    mangle: false,
+                    mangle: true,
                     compress: {
                         'drop_console': true
                     },
-                    sourceMap: true
+                    sourceMap: true,
+                    nameCache: './grunt-uglify-cache.json'
                 },
                 files: {
                     'public/js/lib.min.js': libJsFiles
@@ -108,9 +109,10 @@ module.exports = function (grunt) {
             },
             main: {
                 options: {
-                    mangle: false,
+                    mangle: true,
                     compress: true,
-                    sourceMap: true
+                    sourceMap: true,
+                    nameCache: './grunt-uglify-cache.json'
                 },
                 files: {
                     'public/js/main.min.js': mainJsFiles
