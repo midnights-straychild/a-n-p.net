@@ -204,7 +204,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-if-missing');
-    grunt.loadNpmTasks('grunt-gulp');
     grunt.loadNpmTasks('grunt-git');
 
     grunt.registerTask('unpackDb', function () {
