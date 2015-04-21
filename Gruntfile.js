@@ -29,13 +29,11 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            install: [
+            build: [
                 './public/css/',
                 './public/js/',
-                './src/js/lib/'
-            ],
-            cache: [
-                './cache'
+                './src/js/lib/',
+                './vendor/'
             ]
         },
         jshint: {
@@ -57,8 +55,7 @@ module.exports = function (grunt) {
                     nodeSrcPath + 'angular/angular.js',
                     nodeSrcPath + 'angular-route/angular-route.js',
                     nodeSrcPath + 'jquery/dist/jquery.js',
-                    nodeSrcPath + 'bootstrap/dist/js/bootstrap.js',
-                    'cache/assets/js/jquery-ui-1.11.4/jquery-ui.js'
+                    nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
                 ],
                 dest: 'src/js/lib'
             },
@@ -67,7 +64,8 @@ module.exports = function (grunt) {
                 expand: true,
                 flatten: true,
                 src: [
-                    vendorSrcPath + 'starmap/js/starmap.js'
+                    vendorSrcPath + 'starmap/js/starmap.js',
+                    vendorSrcPath + 'jquery-ui-1.11.4/jquery-ui.js'
                 ],
                 dest: 'src/js/lib'
             }
@@ -108,7 +106,7 @@ module.exports = function (grunt) {
             },
             main: {
                 options: {
-                    mangle: false,
+                    mangle: true,
                     compress: true,
                     sourceMap: true
                 },
@@ -148,7 +146,7 @@ module.exports = function (grunt) {
                 ],
                 dest: 'cache/assets/img'
             },
-            'assets-js': {
+            'vendor-js': {
                 src: [
                     'http://jqueryui.com/resources/download/jquery-ui-1.11.4.zip'
                 ],
@@ -160,9 +158,9 @@ module.exports = function (grunt) {
                 src: 'cache/assets/img/*.zip',
                 dest: 'public/assets/img/'
             },
-            'assets-js': {
+            'vendor-js': {
                 src: 'cache/assets/js/*.zip',
-                dest: 'cache/assets/js/'
+                dest: 'vendor/'
             }
         },
         watch: {
@@ -179,18 +177,6 @@ module.exports = function (grunt) {
                 options: {
                     spawn: false
                 }
-            }
-        },
-        gulp: {
-            decompressDb: function () {
-                var gulp = require('gulp'),
-                    bzip2 = require('decompress-bzip2'),
-                    vinylAssign = require('vinyl-assign');
-
-                return gulp.src('cache/db/*.bz2')
-                    .pipe(vinylAssign({extract: true}))
-                    .pipe(bzip2())
-                    .pipe(gulp.dest('assets/db'));
             }
         },
         gitclone: {
@@ -217,9 +203,38 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-if-missing');
     grunt.loadNpmTasks('grunt-gulp');
     grunt.loadNpmTasks('grunt-git');
+    grunt.loadNpmTasks('grunt-if-missing');
+
+    grunt.registerTask('unpackDb', function () {
+        var Decompress = require('decompress'),
+            bzip2 = require('decompress-bzip2'),
+            done = this.async(),
+
+            decompressBzip2 = new Decompress()
+                .src('./cache/db/eve.db.bz2')
+                .dest('./assets/db')
+                .use(bzip2());
+
+        console.log('Files decompressing');
+
+        decompressBzip2.run(function (err, files) {
+            if (err) {
+                done(false);
+                throw err;
+            }
+
+            console.log('Files decompressed:');
+            console.log(files);
+            console.log('Files extracted successfully!');
+            done();
+        });
+
+        return true;
+    });
 
     grunt.registerTask('test', [
-        'jshint',
+        'clean:build',
+        'fetchVendors',
         'minifyJs',
         'minifyLessProd'
     ]);
@@ -254,16 +269,22 @@ module.exports = function (grunt) {
         'nodemon:dev'
     ]);
 
+    grunt.registerTask('fetchVendors', [
+        'gitclone',
+        'if-missing:curl-dir:vendor-js',
+        'unzip:vendor-js'
+    ]);
+
     grunt.registerTask('fetchAssets', [
-        'if-missing:curl-dir:assets',
+        'if-missing:curl-dir:assets-image',
         'unzip:assets-image',
         'if-missing:curl-dir:db',
-        'gulp:decompressDb'
+        'unpackDb'
     ]);
 
     grunt.registerTask('install', [
-        'gitclone',
         'fetchAssets',
+        'fetchVendors',
         'minifyLessProd',
         'minifyJs',
         'test',
