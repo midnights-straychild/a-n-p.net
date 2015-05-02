@@ -9,21 +9,5 @@
       "vCode": "nIO1MXNtCjqm8pPv6XvTVSKBgjChICJPUL3ymCmtHf5e5uZAxySK65K8aXVJB98K"
     }
   },
-  "proxy": {
-    "http": {
-      "host": "http://webproxy.loyaltypartner.com/",
-      "hostname": "webproxy.loyaltypartner.com",
-      "port": "8080",
-      "username": "rlauseker",
-      "password": "749514Pb"
-    },
-    "https": {
-      "host": "http://webproxy.loyaltypartner.com/",
-      "hostname": "webproxy.loyaltypartner.com",
-      "port": "8080",
-      "username": "rlauseker",
-      "password": "749514Pb"
-    }
-  },
   "dbPath": "./assets/db/eve.db"
 }

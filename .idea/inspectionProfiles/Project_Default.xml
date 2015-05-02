@@ -32,7 +32,7 @@
     <inspection_tool class="ChainedEqualityJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
-    <inspection_tool class="ChainedFunctionCallJS" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="ChainedFunctionCallJS" enabled="true" level="WARNING" enabled_by_default="false">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="CheckEmptyScriptTag" enabled="true" level="WARNING" enabled_by_default="true">
@@ -65,8 +65,8 @@
     <inspection_tool class="ConstantIfStatementJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
-    <inspection_tool class="ConstantOnLHSOfComparisonJS" enabled="true" level="WARNING" enabled_by_default="true">
-      <scope name="Source" level="WARNING" enabled="true" />
+    <inspection_tool class="ConstantOnLHSOfComparisonJS" enabled="false" level="WARNING" enabled_by_default="false">
+      <scope name="Source" level="WARNING" enabled="false" />
     </inspection_tool>
     <inspection_tool class="ConstantOnRHSOfComparisonJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
@@ -145,7 +145,7 @@
     </inspection_tool>
     <inspection_tool class="FunctionNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true">
-        <option name="m_regex" value="[a-z][A-Za-z]*" />
+        <option name="m_regex" value="[A-Za-z]*" />
         <option name="m_minLength" value="4" />
         <option name="m_maxLength" value="32" />
       </scope>
@@ -405,7 +405,7 @@
     </inspection_tool>
     <inspection_tool class="LocalVariableNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true">
-        <option name="m_regex" value="[a-z][A-Za-z]*" />
+        <option name="m_regex" value="[A-Za-z]*" />
         <option name="m_minLength" value="1" />
         <option name="m_maxLength" value="32" />
       </scope>
@@ -438,8 +438,8 @@
     <inspection_tool class="NestedConditionalExpressionJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true" />
     </inspection_tool>
-    <inspection_tool class="NestedFunctionCallJS" enabled="true" level="WARNING" enabled_by_default="true">
-      <scope name="Source" level="WARNING" enabled="true" />
+    <inspection_tool class="NestedFunctionCallJS" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Source" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="NestedFunctionJS" enabled="true" level="WARNING" enabled_by_default="false">
       <scope name="Source" level="WARNING" enabled="true">
@@ -482,7 +482,7 @@
     </inspection_tool>
     <inspection_tool class="ParameterNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Source" level="WARNING" enabled="true">
-        <option name="m_regex" value="[a-z][A-Za-z]*" />
+        <option name="m_regex" value="[A-Za-z]*" />
         <option name="m_minLength" value="1" />
         <option name="m_maxLength" value="32" />
       </scope>
@@ -494,7 +494,7 @@
       <scope name="Source" level="WARNING" enabled="true">
         <option name="m_limit" value="5" />
       </scope>
-      <option name="m_limit" value="5" />
+      <option name="m_limit" value="10" />
     </inspection_tool>
     <inspection_tool class="PhpCSValidationInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="CODING_STANDARD" value="PSR1" />

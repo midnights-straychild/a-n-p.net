@@ -7,31 +7,33 @@ module.exports = function (grunt) {
         lessSrcPath = './src/less/',
         lessDestPath = './public/css/',
         nodeSrcPath = './node_modules/',
+        vendorSrcPath = './vendor/',
 
         libJsFiles = [
             scriptSrcPath + 'lib/prototypes.js',
             scriptSrcPath + 'lib/jquery.js',
+            scriptSrcPath + 'lib/jquery-ui.js',
             scriptSrcPath + 'lib/bootstrap.js',
             scriptSrcPath + 'lib/angular.js',
-            scriptSrcPath + 'lib/angular-route.js'
+            scriptSrcPath + 'lib/angular-route.js',
+            scriptSrcPath + 'lib/starmap.js'
         ],
 
         mainJsFiles = [
-            scriptSrcPath + '/controller/*.js',
-            scriptSrcPath + '*.js'
+            scriptSrcPath + 'controller/*.js',
+            scriptSrcPath + '*.js',
+            vendorSrcPath + 'starmap/js/*.js'
         ];
 
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            install: [
+            build: [
                 './public/css/',
                 './public/js/',
-                './src/js/lib/'
-            ],
-            cache: [
-                './cache'
+                './src/js/lib/',
+                './vendor/'
             ]
         },
         jshint: {
@@ -54,6 +56,16 @@ module.exports = function (grunt) {
                     nodeSrcPath + 'angular-route/angular-route.js',
                     nodeSrcPath + 'jquery/dist/jquery.js',
                     nodeSrcPath + 'bootstrap/dist/js/bootstrap.js'
+                ],
+                dest: 'src/js/lib'
+            },
+            vendorJs: {
+                nonull: true,
+                expand: true,
+                flatten: true,
+                src: [
+                    vendorSrcPath + 'starmap/js/starmap.js',
+                    vendorSrcPath + 'jquery-ui-1.11.4/jquery-ui.js'
                 ],
                 dest: 'src/js/lib'
             }
@@ -84,9 +96,12 @@ module.exports = function (grunt) {
         uglify: {
             lib: {
                 options: {
-                    mangle: false,
-                    compress: true,
-                    sourceMap: true
+                    mangle: true,
+                    compress: {
+                        'drop_console': true
+                    },
+                    sourceMap: true,
+                    nameCache: './grunt-uglify-cache.json'
                 },
                 files: {
                     'public/js/lib.min.js': libJsFiles
@@ -94,9 +109,10 @@ module.exports = function (grunt) {
             },
             main: {
                 options: {
-                    mangle: false,
+                    mangle: true,
                     compress: true,
-                    sourceMap: true
+                    sourceMap: true,
+                    nameCache: './grunt-uglify-cache.json'
                 },
                 files: {
                     'public/js/main.min.js': mainJsFiles
@@ -127,18 +143,28 @@ module.exports = function (grunt) {
                 ],
                 dest: 'cache/db'
             },
-            assets: {
+            'assets-image': {
                 src: [
                     'http://content.eveonline.com/data/Tiamat_1.0_Icons.zip',
                     'http://content.eveonline.com/data/Tiamat_1.0_Types.zip'
                 ],
-                dest: 'cache/assets/'
+                dest: 'cache/assets/img'
+            },
+            'vendor-js': {
+                src: [
+                    'http://jqueryui.com/resources/download/jquery-ui-1.11.4.zip'
+                ],
+                dest: 'cache/assets/js'
             }
         },
         unzip: {
             'assets-image': {
-                src: 'cache/assets/*.zip',
+                src: 'cache/assets/img/*.zip',
                 dest: 'public/assets/img/'
+            },
+            'vendor-js': {
+                src: 'cache/assets/js/*.zip',
+                dest: 'vendor/'
             }
         },
         watch: {
@@ -157,16 +183,12 @@ module.exports = function (grunt) {
                 }
             }
         },
-        gulp: {
-            decompressDb: function () {
-                var gulp = require('gulp'),
-                    bzip2 = require('decompress-bzip2'),
-                    vinylAssign = require('vinyl-assign');
-
-                return gulp.src('cache/db/*.bz2')
-                    .pipe(vinylAssign({extract: true}))
-                    .pipe(bzip2())
-                    .pipe(gulp.dest('assets/db'));
+        gitclone: {
+            starmap: {
+                options: {
+                    repository: 'https://github.com/midnights-straychild/ovid.github.com.git',
+                    directory: './vendor/starmap'
+                }
             }
         }
     });
@@ -174,7 +196,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -183,10 +204,38 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-if-missing');
-    grunt.loadNpmTasks('grunt-gulp');
+    grunt.loadNpmTasks('grunt-git');
+
+    grunt.registerTask('unpackDb', function () {
+        var Decompress = require('decompress'),
+            bzip2 = require('decompress-bzip2'),
+            done = this.async(),
+
+            decompressBzip2 = new Decompress()
+                .src('./cache/db/eve.db.bz2')
+                .dest('./assets/db')
+                .use(bzip2());
+
+        console.log('Files decompressing');
+
+        decompressBzip2.run(function (err, files) {
+            if (err) {
+                done(false);
+                throw err;
+            }
+
+            console.log('Files decompressed:');
+            console.log(files);
+            console.log('Files extracted successfully!');
+            done();
+        });
+
+        return true;
+    });
 
     grunt.registerTask('test', [
-        'jshint',
+        'clean:build',
+        'fetchVendors',
         'minifyJs',
         'minifyLessProd'
     ]);
@@ -199,6 +248,7 @@ module.exports = function (grunt) {
     grunt.registerTask('minifyJs', [
         'jshint',
         'copy:libJs',
+        'copy:vendorJs',
         'uglify:lib',
         'uglify:main'
     ]);
@@ -220,15 +270,22 @@ module.exports = function (grunt) {
         'nodemon:dev'
     ]);
 
+    grunt.registerTask('fetchVendors', [
+        'gitclone',
+        'if-missing:curl-dir:vendor-js',
+        'unzip:vendor-js'
+    ]);
+
     grunt.registerTask('fetchAssets', [
-        'if-missing:curl-dir:assets',
+        'if-missing:curl-dir:assets-image',
         'unzip:assets-image',
         'if-missing:curl-dir:db',
-        'gulp:decompressDb'
+        'unpackDb'
     ]);
 
     grunt.registerTask('install', [
         'fetchAssets',
+        'fetchVendors',
         'minifyLessProd',
         'minifyJs',
         'test',

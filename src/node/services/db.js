@@ -41,10 +41,9 @@ var sqlite3 = require('sqlite3'),
 
     getFromTableWhere = function (table, where, callback) {
         'use strict';
-        var rows = [],
-            i = 0,
-            key,
+        var key,
             whereString,
+            sql,
             whereParams = [];
 
         if (where !== undefined) {
@@ -55,26 +54,21 @@ var sqlite3 = require('sqlite3'),
             whereString = ' WHERE ' + whereString;
         }
 
+        sql = 'SELECT * FROM ' + table + whereString;
+
         db = getDB();
 
-        db.each(
-            'SELECT * FROM ' + table + whereString,
-            function (err, row) {
-                if (err) {
-                    console.log(err);
-                }
-
-                rows[i] = row;
-                i += 1;
-            },
-            function (err) {
+        db.all(
+            sql,
+            whereParams,
+            function (err, rows) {
                 if (err) {
                     console.log(err);
                 }
 
                 callback(rows);
-            },
-            whereParams
+            }
+
         );
     };
 
