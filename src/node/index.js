@@ -3,8 +3,10 @@ var express = require('express'),
     app = express(),
     mapService = require('./services/map'),
 
-require('./https-proxy.js')(true);
-//require('./http-proxy.js')();
+    server = app.listen(20000, function () {
+        'use strict';
+        var host = server.address().address,
+            port = server.address().port;
 
         console.log('Example app listening at http://%s:%s', host, port);
     });
@@ -54,20 +56,18 @@ app.get('/regionList', function (req, res) {
     });
 });
 
-//eveonlinejs.setParams({
-//    keyID: config.api.ceo.keyID,
-//    vCode: config.api.ceo.vCode
-//});
-//
-//eveonlinejs.fetch('eve:SkillTree', function (err, result) {
-//    'use strict';
-//    var groupID;
-//
-//    if (err) {
-//        throw err;
-//    }
-//
-//    for (groupID in result.skillGroups) {
-//        console.log(result.skillGroups[groupID].groupName);
-//    }
-//});
+app.get('/region/:regionId', function (req, res) {
+    'use strict';
+
+    if ('string' === typeof req.params.regionId) {
+        mapService.getRegionByName(req.params.regionId, function (region) {
+            res.contentType('application/json');
+            res.send(JSON.stringify(region));
+        });
+    } else {
+        mapService.getRegion(req.params.regionId, function (region) {
+            res.contentType('application/json');
+            res.send(JSON.stringify(region));
+        });
+    }
+});
