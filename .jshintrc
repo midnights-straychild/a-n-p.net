@@ -24,8 +24,8 @@
     "quotmark": "single",
     "nonew": true,
     "maxparams": 10,
-  "maxdepth": 5,
-  "maxcomplexity": 20,
+    "maxdepth": 5,
+    "maxcomplexity": 20,
     "globals": {
         "_": true,
         "PB": true,
