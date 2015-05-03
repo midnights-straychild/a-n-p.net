@@ -10,6 +10,7 @@ Prototype for an EVE Online corp homepage with map and API access.
 
 * NodeJs 0.12
 * NPM
+* Apache
 * MongoDB
 * SQLite
 
