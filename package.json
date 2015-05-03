@@ -50,10 +50,9 @@
     "grunt-contrib-yuidoc": ">=0.5.2",
     "grunt-curl": "^2.1.0",
     "grunt-git": "^0.3.4",
-    "grunt-karma": "^0.10.1",
+    "grunt-if-missing": "^1.0.0",
     "grunt-nodemon": ">=0.4.0",
     "grunt-npm-install": ">=0.2.0",
-    "grunt-protractor-runner": "^1.2.1",
     "grunt-uncss": "~0.4.1",
     "grunt-zip": "~0.16.2"
   },
