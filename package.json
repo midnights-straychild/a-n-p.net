@@ -55,9 +55,7 @@
     "grunt-npm-install": ">=0.2.0",
     "grunt-protractor-runner": "^1.2.1",
     "grunt-uncss": "~0.4.1",
-    "grunt-autoprefixer": "~2.2.0",
     "grunt-zip": "~0.16.2"
-    "grunt-git": "~0.3.4"
   },
   "keywords": [],
   "releaseFolder": "release",
