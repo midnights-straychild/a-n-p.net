@@ -54,7 +54,9 @@
     "grunt-nodemon": ">=0.4.0",
     "grunt-npm-install": ">=0.2.0",
     "grunt-uncss": "~0.4.1",
-    "grunt-zip": "~0.16.2"
+    "grunt-zip": "~0.16.2",
+    "decompress": "^2.3.0",
+    "decompress-bzip2": "^3.0.0"
   },
   "keywords": [],
   "releaseFolder": "release",
