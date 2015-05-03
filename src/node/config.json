@@ -9,5 +9,6 @@
       "vCode": "nIO1MXNtCjqm8pPv6XvTVSKBgjChICJPUL3ymCmtHf5e5uZAxySK65K8aXVJB98K"
     }
   },
+  "apicachePath": "./eveapicache/",
   "dbPath": "./assets/db/eve.db"
 }
