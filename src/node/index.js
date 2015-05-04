@@ -2,6 +2,7 @@
 var express = require('express'),
     app = express(),
     mapService = require('./services/map'),
+    eveapiService = require('./services/eve'),
 
     server = app.listen(20000, function () {
         'use strict';
@@ -70,4 +71,22 @@ app.get('/region/:regionId', function (req, res) {
             res.send(JSON.stringify(region));
         });
     }
+});
+
+app.get('/characters/:user', function (req, res) {
+    'use strict';
+
+    eveapiService.getCharacters(req.params.user, function (characters) {
+        res.contentType('application/json');
+        res.send(JSON.stringify(characters));
+    });
+});
+
+app.get('/blueprints/:user/:characterid', function (req, res) {
+    'use strict';
+
+    eveapiService.getBlueprints(req.params.user, req.params.characterid, function (characters) {
+        res.contentType('application/json');
+        res.send(JSON.stringify(characters));
+    });
 });

@@ -3,14 +3,14 @@
 var eveonlinejs = require('eveonlinejs'),
     config = require('./../config.json'),
 
-    getFromApi = function (path, user, params) {
+    getFromApi = function (path, user, callback, params) {
         'use strict';
+        eveonlinejs.setCache(new eveonlinejs.cache.FileCache({path: config.apicachePath}))
+        eveonlinejs.setParams({
+            keyID: config.api[user].keyID,
+            vCode: config.api[user].vCode
+        });
         eveonlinejs.fetch(path, params, function (err, result) {
-            eveonlinejs.setParams({
-                keyID: config.api[user].keyID,
-                vCode: config.api[user].vCode
-            });
-
             if (err) {
                 switch (err.code) {
                     case 'ETIMEDOUT':
@@ -20,13 +20,25 @@ var eveonlinejs = require('eveonlinejs'),
                         throw err;
                 }
             }
-            return result;
+            callback(result);
         });
     },
 
-    getSkillTree = function () {
+    getCharacters = function (user, callback) {
         'use strict';
-        return getFromApi('eve:SkillTree', 'ceo');
+        getFromApi('account:Characters', user, callback);
+    },
+
+    getBlueprints = function (user, characterid, callback) {
+        'use strict';
+        getFromApi('char:Blueprints', user, callback, {characterID: characterid});
+    },
+
+   getSkillTree = function (user, callback) {
+        'use strict';
+        getFromApi('eve:SkillTree', user, callback);
     };
 
+exports.getCharacters = getCharacters;
+exports.getBlueprints = getBlueprints;
 exports.getSkillTree = getSkillTree;
